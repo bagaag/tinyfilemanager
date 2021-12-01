@@ -25,14 +25,13 @@ $use_auth = true;
 // Users: array('Username' => 'Password', 'Username2' => 'Password2', ...)
 // Generate secure password hash - https://tinyfilemanager.github.io/docs/pwd.html
 $auth_users = array(
-    'admin' => '$2y$10$/K.hjNr84lLNDt8fTXjoI.DBp6PpeyoJ.mGwrrLuCZfAwfSAGqhOW', //admin@123
-    'user' => '$2y$10$Fg6Dz8oH9fPoZ2jJan5tZuv6Z4Kp7avtQ9bDfrdRntXtPeiMAZyGO' //12345
+    'admin' => '$2y$10$SWmWSEVkMQtv5m6bvWlBGuWmub9GrhWM5K.8c8GwFRydT.3vB.6qG'
 );
 
 // Readonly users
 // e.g. array('users', 'guest', ...)
 $readonly_users = array(
-    'user'
+    //'user'
 );
 
 // Enable highlight.js (https://highlightjs.org/) on view's page
@@ -47,11 +46,12 @@ $edit_files = true;
 
 // Default timezone for date() and time()
 // Doc - http://php.net/manual/en/timezones.php
-$default_timezone = 'Etc/UTC'; // UTC
+$default_timezone = 'America/New_York'; // UTC
 
 // Root path for file manager
 // use absolute path of directory i.e: '/var/www/folder' or $_SERVER['DOCUMENT_ROOT'].'/folder'
-$root_path = $_SERVER['DOCUMENT_ROOT'];
+//$root_path = $_SERVER['DOCUMENT_ROOT'];
+$root_path = $_SERVER['DOCUMENT_ROOT'] . "/entries";
 
 // Root url for links in file manager.Relative to $http_host. Variants: '', 'path/to/subfolder'
 // Will not working if $root_path will be outside of server document root
@@ -69,15 +69,15 @@ $iconv_input_encoding = 'UTF-8';
 
 // date() format for file modification date
 // Doc - https://www.php.net/manual/en/function.date.php
-$datetime_format = 'd.m.y H:i';
+$datetime_format = 'Y-m-d h:i';
 
 // Allowed file extensions for create and rename files
 // e.g. 'txt,html,css,js'
-$allowed_file_extensions = '';
+$allowed_file_extensions = 'md';
 
 // Allowed file extensions for upload files
 // e.g. 'gif,png,jpg,html,txt'
-$allowed_upload_extensions = '';
+$allowed_upload_extensions = 'gif,png,jpg,webp,jpeg,md';
 
 // Favicon path. This can be either a full url to an .PNG image, or a path based on the document root.
 // full path, e.g http://example.com/favicon.png
@@ -103,7 +103,7 @@ $sticky_navbar = true;
 // Maximum file upload size
 // Increase the following values in php.ini to work properly
 // memory_limit, upload_max_filesize, post_max_size
-$max_upload_size_bytes = 5000;
+$max_upload_size_bytes = 10000000; // 10MB
 
 // Possible rules are 'OFF', 'AND' or 'OR'
 // OFF => Don't check connection IP, defaults to OFF
