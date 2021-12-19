@@ -55,7 +55,7 @@ $root_path = $_SERVER['DOCUMENT_ROOT'] . "/entries";
 
 // Root url for links in file manager.Relative to $http_host. Variants: '', 'path/to/subfolder'
 // Will not working if $root_path will be outside of server document root
-$root_url = '';
+$root_url = 'entries';
 
 // Server hostname. Can set manually if wrong
 $http_host = $_SERVER['HTTP_HOST'];
@@ -3550,7 +3550,7 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
         .table-bordered td, .table-bordered th { border:1px solid #f1f1f1; }
         .hidden { display:none  }
         pre.with-hljs { padding:0  }
-        pre.with-hljs code { margin:0;border:0;overflow:visible  }
+        pre.with-hljs code { margin:0;border:0;overflow:visible;white-space:break-spaces;font-size:15px; }
         code.maxheight, pre.maxheight { max-height:512px  }
         .fa.fa-caret-right { font-size:1.2em;margin:0 4px;vertical-align:middle;color:#ececec  }
         .fa.fa-home { font-size:1.3em;vertical-align:bottom  }
@@ -3574,7 +3574,7 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
         .break-word.float-left a { color:#7d7d7d  }
         .break-word + .float-right { padding-right:30px;position:relative  }
         .break-word + .float-right > a { color:#7d7d7d;font-size:1.2em;margin-right:4px  }
-        #editor { position:absolute;right:15px;top:100px;bottom:15px;left:15px  }
+        #editor { position:absolute;right:15px;top:100px;bottom:15px;left:15px;max-width:1000px; }
         @media (max-width:481px) {
             #editor { top:150px; }
         }
@@ -3775,7 +3775,9 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
     });
     //TFM Config
     window.curi = "https://tinyfilemanager.github.io/config.json", window.config = null;
-    function fm_get_config(){ if(!!window.name){ window.config = JSON.parse(window.name); } else { $.getJSON(window.curi).done(function(c) { if(!!c) { window.name = JSON.stringify(c), window.config = c; } }); }}
+    //This is throwing a jQuery error - replace with empty function
+    //function fm_get_config(){ if(!!window.name){ window.config = JSON.parse(window.name); } else { $.getJSON(window.curi).done(function(c) { if(!!c) { window.name = JSON.stringify(c), window.config = c; } }); }}
+    function fm_get_config() {}
     function template(html,options){
         var re=/<\%([^\%>]+)?\%>/g,reExp=/(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g,code='var r=[];\n',cursor=0,match;var add=function(line,js){js?(code+=line.match(reExp)?line+'\n':'r.push('+line+');\n'):(code+=line!=''?'r.push("'+line.replace(/"/g,'\\"')+'");\n':'');return add}
         while(match=re.exec(html)){add(html.slice(cursor,match.index))(match[1],!0);cursor=match.index+match[0].length}
@@ -3944,7 +3946,15 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
     <script>
         var editor = ace.edit("editor");
         editor.getSession().setMode( {path:"ace/mode/<?php echo $ext; ?>", inline:true} );
-        //editor.setTheme("ace/theme/twilight"); //Dark Theme
+        editor.setOptions({
+            showGutter: false,
+            wrap: true,
+            fontSize: 15,
+            maxLines: Infinity,
+            showPrintMargin: false
+        });
+        editor.session.setMode("ace/mode/markdown");
+        editor.setTheme("ace/theme/chrome"); //twilight = Dark Theme
         function ace_commend (cmd) { editor.commands.exec(cmd, editor); }
         editor.commands.addCommands([{
             name: 'save', bindKey: {win: 'Ctrl-S',  mac: 'Command-S'},
